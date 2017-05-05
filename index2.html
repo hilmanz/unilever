@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>UNILEVER</title>
+<link href="css/unilever.css" type="text/css" rel="stylesheet" />
+<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" >
+var playListURL = 'http://gdata.youtube.com/feeds/api/playlists/B2A4E1367126848D?v=2&alt=json&callback=?';
+var videoURL= 'http://www.youtube.com/watch?v=';
+$.getJSON(playListURL, function(data) {
+    var list_data="";
+    $.each(data.feed.entry, function(i, item) {
+        var feedTitle = item.title.$t;
+        var feedURL = item.link[1].href;
+        var fragments = feedURL.split("/");
+        var videoID = fragments[fragments.length - 2];
+        var url = videoURL + videoID;
+        var thumb = "http://img.youtube.com/vi/"+ videoID +"/default.jpg";
+        list_data += '<li><a href="'+ url +'" title="'+ feedTitle +'"><img alt="'+ feedTitle+'" src="'+ thumb +'"</a></li>';
+    });
+    $(list_data).appendTo(".cont");
+});
+</script>
+</head>
+
+<body>
+<div id="body">
+  <ul class="cont">
+</ul>
+</div><!-- End #body --> 
+</body>
+</html>
